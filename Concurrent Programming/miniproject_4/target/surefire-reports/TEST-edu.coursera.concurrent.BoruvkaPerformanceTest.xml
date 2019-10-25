@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="edu.coursera.concurrent.BoruvkaPerformanceTest" time="137.738" tests="2" errors="0" skipped="0" failures="2">
+  <properties>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="java.vm.version" value="12+33"/>
+    <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk-12.jdk/Contents/Home/lib"/>
+    <property name="maven.multiModuleProjectDirectory" value="/Users/siyangzhang/Parallel-Concurrent-Distributed-Programming/Concurrent Programming/miniproject_4"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="java.vendor.url" value="https://java.oracle.com/"/>
+    <property name="guice.disable.misplaced.annotation.check" value="true"/>
+    <property name="path.separator" value=":"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="user.script" value="Hans"/>
+    <property name="user.country" value="CN"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="/Users/siyangzhang/Parallel-Concurrent-Distributed-Programming/Concurrent Programming/miniproject_4"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="java.runtime.version" value="12+33"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.CGraphicsEnvironment"/>
+    <property name="os.arch" value="x86_64"/>
+    <property name="java.io.tmpdir" value="/var/folders/m5/fcy49f1s46x5x8rjd74dnq800000gn/T/"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="socksProxyPort" value="1086"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="https.proxyHost" value="127.0.0.1"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="maven.ext.class.path" value="/Applications/IntelliJ IDEA.app/Contents/plugins/maven/lib/maven-event-listener.jar"/>
+    <property name="classworlds.conf" value="/Applications/IntelliJ IDEA.app/Contents/plugins/maven/lib/maven3/bin/m2.conf"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="http.proxyPort" value="1087"/>
+    <property name="java.library.path" value="/Users/siyangzhang/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="maven.conf" value="/Applications/IntelliJ IDEA.app/Contents/plugins/maven/lib/maven3/conf"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="java.class.version" value="56.0"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="os.version" value="10.14.6"/>
+    <property name="http.nonProxyHosts" value="127.0.0.1|localhost|*.localhost"/>
+    <property name="user.home" value="/Users/siyangzhang"/>
+    <property name="user.timezone" value="Asia/Shanghai"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.specification.version" value="12"/>
+    <property name="user.name" value="siyangzhang"/>
+    <property name="idea.version2019.2.3" value="true"/>
+    <property name="java.class.path" value="/Applications/IntelliJ IDEA.app/Contents/plugins/maven/lib/maven3/boot/plexus-classworlds-2.6.0.jar"/>
+    <property name="socksProxyHost" value="127.0.0.1"/>
+    <property name="java.vm.specification.version" value="12"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="sun.java.command" value="org.codehaus.classworlds.Launcher -Didea.version2019.2.3 test"/>
+    <property name="java.home" value="/Library/Java/JavaVirtualMachines/jdk-12.jdk/Contents/Home"/>
+    <property name="user.language" value="zh"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit"/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="java.version" value="12"/>
+    <property name="http.proxyHost" value="127.0.0.1"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="maven.home" value="/Applications/IntelliJ IDEA.app/Contents/plugins/maven/lib/maven3"/>
+    <property name="file.separator" value="/"/>
+    <property name="java.version.date" value="2019-03-19"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="https.proxyPort" value="1087"/>
+    <property name="socksNonProxyHosts" value="127.0.0.1|localhost|*.localhost"/>
+    <property name="ftp.nonProxyHosts" value="127.0.0.1|localhost|*.localhost"/>
+  </properties>
+  <testcase name="testInputUSAroadFLA" classname="edu.coursera.concurrent.BoruvkaPerformanceTest" time="56.484">
+    <failure message="expected:&lt;1070375&gt; but was:&lt;16443&gt;" type="junit.framework.AssertionFailedError"><![CDATA[junit.framework.AssertionFailedError: expected:<1070375> but was:<16443>
+	at junit.framework.Assert.fail(Assert.java:47)
+	at junit.framework.Assert.failNotEquals(Assert.java:280)
+	at junit.framework.Assert.assertEquals(Assert.java:64)
+	at junit.framework.Assert.assertEquals(Assert.java:133)
+	at junit.framework.Assert.assertEquals(Assert.java:139)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.testInputUSAroadFLA(BoruvkaPerformanceTest.java:110)
+]]></failure>
+    <system-err><![CDATA[  src/main/resources/boruvka/USA-road-d.FLA.gr.gz - edu.coursera.concurrent.boruvka.sequential.SeqBoruvka - 1822
+  src/main/resources/boruvka/USA-road-d.FLA.gr.gz - edu.coursera.concurrent.boruvka.sequential.SeqBoruvka - 1784
+  src/main/resources/boruvka/USA-road-d.FLA.gr.gz - edu.coursera.concurrent.boruvka.sequential.SeqBoruvka - 1833
+  src/main/resources/boruvka/USA-road-d.FLA.gr.gz - edu.coursera.concurrent.boruvka.sequential.SeqBoruvka - 1528
+  src/main/resources/boruvka/USA-road-d.FLA.gr.gz - edu.coursera.concurrent.boruvka.sequential.SeqBoruvka - 2190
+Exception in thread "Thread-2" java.lang.NullPointerException
+	at edu.coursera.concurrent.ParBoruvka.computeBoruvka(ParBoruvka.java:38)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.lambda$driver$0(BoruvkaPerformanceTest.java:72)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+Exception in thread "Thread-1" java.lang.AssertionError
+	at edu.coursera.concurrent.SolutionToBoruvka.setSolution(SolutionToBoruvka.java:23)
+	at edu.coursera.concurrent.ParBoruvka.computeBoruvka(ParBoruvka.java:70)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.lambda$driver$0(BoruvkaPerformanceTest.java:72)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+Exception in thread "Thread-3" java.lang.AssertionError
+	at edu.coursera.concurrent.SolutionToBoruvka.setSolution(SolutionToBoruvka.java:23)
+	at edu.coursera.concurrent.ParBoruvka.computeBoruvka(ParBoruvka.java:70)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.lambda$driver$0(BoruvkaPerformanceTest.java:72)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+  src/main/resources/boruvka/USA-road-d.FLA.gr.gz - edu.coursera.concurrent.ParBoruvka - 1686
+Exception in thread "Thread-4" java.lang.AssertionError
+	at edu.coursera.concurrent.SolutionToBoruvka.setSolution(SolutionToBoruvka.java:23)
+	at edu.coursera.concurrent.ParBoruvka.computeBoruvka(ParBoruvka.java:70)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.lambda$driver$0(BoruvkaPerformanceTest.java:72)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+Exception in thread "Thread-7" java.lang.AssertionError
+	at edu.coursera.concurrent.SolutionToBoruvka.setSolution(SolutionToBoruvka.java:23)
+	at edu.coursera.concurrent.ParBoruvka.computeBoruvka(ParBoruvka.java:70)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.lambda$driver$0(BoruvkaPerformanceTest.java:72)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+Exception in thread "Thread-5" java.lang.NullPointerException
+  src/main/resources/boruvka/USA-road-d.FLA.gr.gz - edu.coursera.concurrent.ParBoruvka - 1880
+Exception in thread "Thread-8" java.lang.AssertionError
+	at edu.coursera.concurrent.SolutionToBoruvka.setSolution(SolutionToBoruvka.java:23)
+	at edu.coursera.concurrent.ParBoruvka.computeBoruvka(ParBoruvka.java:70)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.lambda$driver$0(BoruvkaPerformanceTest.java:72)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+Exception in thread "Thread-11" java.lang.AssertionError
+	at edu.coursera.concurrent.SolutionToBoruvka.setSolution(SolutionToBoruvka.java:23)
+	at edu.coursera.concurrent.ParBoruvka.computeBoruvka(ParBoruvka.java:70)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.lambda$driver$0(BoruvkaPerformanceTest.java:72)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+Exception in thread "Thread-10" java.lang.AssertionError
+	at edu.coursera.concurrent.SolutionToBoruvka.setSolution(SolutionToBoruvka.java:23)
+	at edu.coursera.concurrent.ParBoruvka.computeBoruvka(ParBoruvka.java:70)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.lambda$driver$0(BoruvkaPerformanceTest.java:72)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+  src/main/resources/boruvka/USA-road-d.FLA.gr.gz - edu.coursera.concurrent.ParBoruvka - 1664
+Exception in thread "Thread-12" Exception in thread "Thread-15" java.lang.AssertionError
+	at edu.coursera.concurrent.SolutionToBoruvka.setSolution(SolutionToBoruvka.java:23)
+	at edu.coursera.concurrent.ParBoruvka.computeBoruvka(ParBoruvka.java:70)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.lambda$driver$0(BoruvkaPerformanceTest.java:72)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+Exception in thread "Thread-14" java.lang.AssertionError
+	at edu.coursera.concurrent.SolutionToBoruvka.setSolution(SolutionToBoruvka.java:23)
+	at edu.coursera.concurrent.ParBoruvka.computeBoruvka(ParBoruvka.java:70)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.lambda$driver$0(BoruvkaPerformanceTest.java:72)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+java.lang.NullPointerException
+  src/main/resources/boruvka/USA-road-d.FLA.gr.gz - edu.coursera.concurrent.ParBoruvka - 1814
+Exception in thread "Thread-17" java.lang.NullPointerException
+Exception in thread "Thread-16" Exception in thread "Thread-18" java.lang.AssertionError
+	at edu.coursera.concurrent.SolutionToBoruvka.setSolution(SolutionToBoruvka.java:23)
+	at edu.coursera.concurrent.ParBoruvka.computeBoruvka(ParBoruvka.java:70)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.lambda$driver$0(BoruvkaPerformanceTest.java:72)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+java.lang.NullPointerException
+  src/main/resources/boruvka/USA-road-d.FLA.gr.gz - edu.coursera.concurrent.ParBoruvka - 1285
+]]></system-err>
+  </testcase>
+  <testcase name="testInputUSAroadNE" classname="edu.coursera.concurrent.BoruvkaPerformanceTest" time="81.254">
+    <failure message="expected:&lt;1524452&gt; but was:&lt;1480081&gt;" type="junit.framework.AssertionFailedError"><![CDATA[junit.framework.AssertionFailedError: expected:<1524452> but was:<1480081>
+	at junit.framework.Assert.fail(Assert.java:47)
+	at junit.framework.Assert.failNotEquals(Assert.java:280)
+	at junit.framework.Assert.assertEquals(Assert.java:64)
+	at junit.framework.Assert.assertEquals(Assert.java:133)
+	at junit.framework.Assert.assertEquals(Assert.java:139)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.testInputUSAroadNE(BoruvkaPerformanceTest.java:121)
+]]></failure>
+    <system-err><![CDATA[  src/main/resources/boruvka/USA-road-d.NE.gr.gz - edu.coursera.concurrent.boruvka.sequential.SeqBoruvka - 3442
+  src/main/resources/boruvka/USA-road-d.NE.gr.gz - edu.coursera.concurrent.boruvka.sequential.SeqBoruvka - 2483
+  src/main/resources/boruvka/USA-road-d.NE.gr.gz - edu.coursera.concurrent.boruvka.sequential.SeqBoruvka - 3647
+  src/main/resources/boruvka/USA-road-d.NE.gr.gz - edu.coursera.concurrent.boruvka.sequential.SeqBoruvka - 2493
+  src/main/resources/boruvka/USA-road-d.NE.gr.gz - edu.coursera.concurrent.boruvka.sequential.SeqBoruvka - 3528
+Exception in thread "Thread-22" java.lang.AssertionError
+	at edu.coursera.concurrent.SolutionToBoruvka.setSolution(SolutionToBoruvka.java:23)
+	at edu.coursera.concurrent.ParBoruvka.computeBoruvka(ParBoruvka.java:70)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.lambda$driver$0(BoruvkaPerformanceTest.java:72)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+Exception in thread "Thread-21" Exception in thread "Thread-20" java.lang.AssertionError
+	at edu.coursera.concurrent.SolutionToBoruvka.setSolution(SolutionToBoruvka.java:23)
+	at edu.coursera.concurrent.ParBoruvka.computeBoruvka(ParBoruvka.java:70)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.lambda$driver$0(BoruvkaPerformanceTest.java:72)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+java.lang.NullPointerException
+  src/main/resources/boruvka/USA-road-d.NE.gr.gz - edu.coursera.concurrent.ParBoruvka - 2467
+Exception in thread "Thread-25" java.lang.AssertionError
+	at edu.coursera.concurrent.SolutionToBoruvka.setSolution(SolutionToBoruvka.java:23)
+	at edu.coursera.concurrent.ParBoruvka.computeBoruvka(ParBoruvka.java:70)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.lambda$driver$0(BoruvkaPerformanceTest.java:72)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+Exception in thread "Thread-26" java.lang.AssertionError
+	at edu.coursera.concurrent.SolutionToBoruvka.setSolution(SolutionToBoruvka.java:23)
+	at edu.coursera.concurrent.ParBoruvka.computeBoruvka(ParBoruvka.java:70)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.lambda$driver$0(BoruvkaPerformanceTest.java:72)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+Exception in thread "Thread-24" java.lang.AssertionError
+	at edu.coursera.concurrent.SolutionToBoruvka.setSolution(SolutionToBoruvka.java:23)
+	at edu.coursera.concurrent.ParBoruvka.computeBoruvka(ParBoruvka.java:70)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.lambda$driver$0(BoruvkaPerformanceTest.java:72)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+  src/main/resources/boruvka/USA-road-d.NE.gr.gz - edu.coursera.concurrent.ParBoruvka - 3515
+Exception in thread "Thread-31" java.lang.AssertionError
+	at edu.coursera.concurrent.SolutionToBoruvka.setSolution(SolutionToBoruvka.java:23)
+	at edu.coursera.concurrent.ParBoruvka.computeBoruvka(ParBoruvka.java:70)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.lambda$driver$0(BoruvkaPerformanceTest.java:72)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+Exception in thread "Thread-30" Exception in thread "Thread-28" java.lang.AssertionError
+	at edu.coursera.concurrent.SolutionToBoruvka.setSolution(SolutionToBoruvka.java:23)
+	at edu.coursera.concurrent.ParBoruvka.computeBoruvka(ParBoruvka.java:70)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.lambda$driver$0(BoruvkaPerformanceTest.java:72)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+java.lang.AssertionError
+	at edu.coursera.concurrent.SolutionToBoruvka.setSolution(SolutionToBoruvka.java:23)
+	at edu.coursera.concurrent.ParBoruvka.computeBoruvka(ParBoruvka.java:70)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.lambda$driver$0(BoruvkaPerformanceTest.java:72)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+  src/main/resources/boruvka/USA-road-d.NE.gr.gz - edu.coursera.concurrent.ParBoruvka - 2769
+Exception in thread "Thread-33" java.lang.NullPointerException
+Exception in thread "Thread-32" java.lang.AssertionError
+	at edu.coursera.concurrent.SolutionToBoruvka.setSolution(SolutionToBoruvka.java:23)
+	at edu.coursera.concurrent.ParBoruvka.computeBoruvka(ParBoruvka.java:70)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.lambda$driver$0(BoruvkaPerformanceTest.java:72)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+Exception in thread "Thread-34" java.lang.AssertionError
+	at edu.coursera.concurrent.SolutionToBoruvka.setSolution(SolutionToBoruvka.java:23)
+	at edu.coursera.concurrent.ParBoruvka.computeBoruvka(ParBoruvka.java:70)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.lambda$driver$0(BoruvkaPerformanceTest.java:72)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+  src/main/resources/boruvka/USA-road-d.NE.gr.gz - edu.coursera.concurrent.ParBoruvka - 2978
+Exception in thread "Thread-39" Exception in thread "Thread-36" java.lang.AssertionError
+	at edu.coursera.concurrent.SolutionToBoruvka.setSolution(SolutionToBoruvka.java:23)
+	at edu.coursera.concurrent.ParBoruvka.computeBoruvka(ParBoruvka.java:70)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.lambda$driver$0(BoruvkaPerformanceTest.java:72)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+java.lang.AssertionError
+	at edu.coursera.concurrent.SolutionToBoruvka.setSolution(SolutionToBoruvka.java:23)
+	at edu.coursera.concurrent.ParBoruvka.computeBoruvka(ParBoruvka.java:70)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.lambda$driver$0(BoruvkaPerformanceTest.java:72)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+Exception in thread "Thread-37" java.lang.AssertionError
+	at edu.coursera.concurrent.SolutionToBoruvka.setSolution(SolutionToBoruvka.java:23)
+	at edu.coursera.concurrent.ParBoruvka.computeBoruvka(ParBoruvka.java:70)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.lambda$driver$0(BoruvkaPerformanceTest.java:72)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+  src/main/resources/boruvka/USA-road-d.NE.gr.gz - edu.coursera.concurrent.ParBoruvka - 2366
+]]></system-err>
+  </testcase>
+</testsuite>

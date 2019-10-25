@@ -1,0 +1,22 @@
+-------------------------------------------------------------------------------
+Test set: edu.coursera.concurrent.BoruvkaPerformanceTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 137.781 sec <<< FAILURE! - in edu.coursera.concurrent.BoruvkaPerformanceTest
+testInputUSAroadFLA(edu.coursera.concurrent.BoruvkaPerformanceTest)  Time elapsed: 56.484 sec  <<< FAILURE!
+junit.framework.AssertionFailedError: expected:<1070375> but was:<16443>
+	at junit.framework.Assert.fail(Assert.java:47)
+	at junit.framework.Assert.failNotEquals(Assert.java:280)
+	at junit.framework.Assert.assertEquals(Assert.java:64)
+	at junit.framework.Assert.assertEquals(Assert.java:133)
+	at junit.framework.Assert.assertEquals(Assert.java:139)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.testInputUSAroadFLA(BoruvkaPerformanceTest.java:110)
+
+testInputUSAroadNE(edu.coursera.concurrent.BoruvkaPerformanceTest)  Time elapsed: 81.254 sec  <<< FAILURE!
+junit.framework.AssertionFailedError: expected:<1524452> but was:<1480081>
+	at junit.framework.Assert.fail(Assert.java:47)
+	at junit.framework.Assert.failNotEquals(Assert.java:280)
+	at junit.framework.Assert.assertEquals(Assert.java:64)
+	at junit.framework.Assert.assertEquals(Assert.java:133)
+	at junit.framework.Assert.assertEquals(Assert.java:139)
+	at edu.coursera.concurrent.BoruvkaPerformanceTest.testInputUSAroadNE(BoruvkaPerformanceTest.java:121)
+

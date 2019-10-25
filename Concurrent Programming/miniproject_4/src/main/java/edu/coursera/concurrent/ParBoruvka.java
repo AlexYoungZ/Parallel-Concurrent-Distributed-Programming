@@ -8,6 +8,7 @@ import edu.coursera.concurrent.boruvka.Component;
 import java.util.Queue;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * A parallel implementation of Boruvka's algorithm to compute a Minimum
@@ -28,7 +29,46 @@ public final class ParBoruvka extends AbstractBoruvka<ParBoruvka.ParComponent> {
     @Override
     public void computeBoruvka(final Queue<ParComponent> nodesLoaded,
             final SolutionToBoruvka<ParComponent> solution) {
-        throw new UnsupportedOperationException();
+        ParComponent loopNode = null;
+
+        while (!nodesLoaded.isEmpty()) {
+
+            loopNode = nodesLoaded.poll();
+
+            if (loopNode.isDead || !loopNode.lock.tryLock()) {
+                continue;
+            }
+
+            // retrieve loopNode's edge with min cost
+            final Edge<ParComponent> e = loopNode.getMinEdge();
+            if (e == null) {
+                loopNode.lock.unlock();
+                break;
+            }
+
+            final ParComponent other = e.getOther(loopNode);
+            if (!other.lock.tryLock()) {
+                loopNode.lock.unlock();
+                nodesLoaded.add(loopNode);
+                continue;
+            }
+
+            if (other.isDead) {
+                loopNode.lock.unlock();
+                other.lock.unlock();
+                nodesLoaded.add(loopNode);
+                continue;
+            }
+
+            other.isDead = true;
+            loopNode.merge(other,e.weight());
+
+            loopNode.lock.unlock();
+            other.lock.unlock();
+            nodesLoaded.add(loopNode);
+        }
+        solution.setSolution(loopNode);
+
     }
 
     /**
@@ -37,6 +77,8 @@ public final class ParBoruvka extends AbstractBoruvka<ParBoruvka.ParComponent> {
      * result of collapsing edges to form a component from multiple nodes.
      */
     public static final class ParComponent extends Component<ParComponent> {
+
+        public final ReentrantLock lock = new ReentrantLock();
         /**
          *  A unique identifier for this component in the graph that contains
          *  it.
