@@ -52,6 +52,19 @@ public class MatrixMult {
      */
     public static void parallelMatrixMultiply(Matrix a, Matrix b, Matrix c,
             final MPI mpi) throws MPIException {
+
+        final int myrank = mpi.MPI_Comm_rank(mpi.MPI_COMM_WORLD);
+        final int size = mpi.MPI_Comm_size(mpi.MPI_COMM_WORLD);
+
+        final int nrows = c.getNRows();
+        final int ncols = c.getNCols();
+        final int rowChunk = (nrows + size - 1) / size;
+        final int startRow = myrank * rowChunk;
+        final int endRow = Math.min((myrank + 1) * rowChunk, nrows);
+
+        mpi.MPI_Bcast(a.getValues(), 0, a.getNRows() * a.getNCols(), 0, mpi.MPI_COMM_WORLD);
+        mpi.MPI_Bcast(b.getValues(), 0, b.getNRows() * b.getNCols(), 0, mpi.MPI_COMM_WORLD);
+
         for (int i = 0; i < c.getNRows(); i++) {
             for (int j = 0; j < c.getNCols(); j++) {
                 c.set(i, j, 0.0);
@@ -60,6 +73,22 @@ public class MatrixMult {
                     c.incr(i, j, a.get(i, k) * b.get(k, j));
                 }
             }
+        }
+
+        if (myrank == 0) {
+            final MPI.MPI_Request[] requests = new MPI.MPI_Request[size - 1];
+            for (int i = 1; i < size; i++) {
+                final int rankStartRow = i * rowChunk;
+                final int randEndRow = Math.min((i + 1) * rowChunk, nrows);
+
+                final int rowOffset = rankStartRow * ncols;
+                final int nElements = (randEndRow - rankStartRow) * ncols;
+
+                requests[i - 1] = mpi.MPI_Irecv(c.getValues(), rowOffset, nElements, i, i, mpi.MPI_COMM_WORLD);
+            }
+            mpi.MPI_Waitall(requests);
+        } else {
+            mpi.MPI_Send(c.getValues(), startRow * ncols, (endRow - startRow) * ncols, 0, myrank, mpi.MPI_COMM_WORLD);
         }
     }
 }
