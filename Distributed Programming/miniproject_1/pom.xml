@@ -25,12 +25,21 @@
             <scope>test</scope>
         </dependency>
         <!-- Apache Spark -->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.spark</groupId>-->
+<!--            <artifactId>spark-core_2.10</artifactId>-->
+<!--            <version>1.6.1</version>-->
+<!--        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-core -->
         <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-core_2.10</artifactId>
-            <version>1.6.1</version>
+            <artifactId>spark-core_2.12</artifactId>
+            <version>2.4.3</version>
         </dependency>
+
     </dependencies>
+
+
 
     <build>
         <pluginManagement>
