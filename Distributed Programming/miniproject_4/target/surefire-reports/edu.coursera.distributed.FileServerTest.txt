@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------------
+Test set: edu.coursera.distributed.FileServerTest
+-------------------------------------------------------------------------------
+Tests run: 9, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 20.437 sec <<< FAILURE! - in edu.coursera.distributed.FileServerTest
+testPerformance(edu.coursera.distributed.FileServerTest)  Time elapsed: 20.046 sec  <<< FAILURE!
+junit.framework.AssertionFailedError: Expected parallel threads to produce at least a 2.0x improvement, but only saw 1.2496815286624203x
+	at junit.framework.Assert.fail(Assert.java:47)
+	at junit.framework.Assert.assertTrue(Assert.java:20)
+	at edu.coursera.distributed.FileServerTest.testPerformance(FileServerTest.java:327)
+

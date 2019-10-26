@@ -1,12 +1,12 @@
 package edu.coursera.distributed;
 
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.File;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * A basic and very limited implementation of a file server that responds to GET
@@ -36,10 +36,8 @@ public final class FileServer {
          */
         while (true) {
 
-            // TODO Delete this once you start working on your solution.
-            throw new UnsupportedOperationException();
-
             // TODO 1) Use socket.accept to get a Socket object
+            final Socket s = socket.accept();
 
             /*
              * TODO 2) Now that we have a new Socket object, handle the parsing
@@ -77,6 +75,44 @@ public final class FileServer {
              * If you wish to do so, you are free to re-use code from
              * MiniProject 2 to help with completing this MiniProject.
              */
+            final ExecutorService executor = Executors.newFixedThreadPool(ncores);
+            executor.submit(
+                    ()->{
+                        try {
+                            handle(s, fs);
+                        } catch (final IOException io) {
+                            throw new RuntimeException(io);
+                        }
+                    }
+            );
         }
+    }
+
+    private void handle(final Socket s,final PCDPFilesystem fs)throws IOException {
+        final InputStream inputStream = s.getInputStream();
+        final InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+        final BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+        final String line = bufferedReader.readLine();
+        assert line != null;
+        assert line.startsWith("GET");
+        final String path = line.split(" ")[1];
+
+        final PCDPPath pcdpPath = new PCDPPath(path);
+        final String contents = fs.readFile(pcdpPath);
+        final OutputStream outputStream = s.getOutputStream();
+        final PrintWriter printWriter = new PrintWriter(outputStream);
+        if (contents == null) {
+            printWriter.write("HTTP/1.0 404 Not Found\r\n");
+            printWriter.write("Server: FileServer\r\n");
+            printWriter.write("\r\n");
+        } else {
+            printWriter.write("HTTP/1.0 200 OK\r\n");
+            printWriter.write("Server: FileServer\r\n");
+            printWriter.write("\r\n");
+            printWriter.write(String.format("%s\r\n", contents));
+        }
+        printWriter.close();
+        outputStream.close();
+        s.close();
     }
 }
