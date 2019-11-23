@@ -1,9 +1,6 @@
 package edu.coursera.parallel;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -48,12 +45,12 @@ public final class StudentAnalytics {
      */
     public double averageAgeOfEnrolledStudentsParallelStream(
             final Student[] studentArray) {
-        return Stream.of(studentArray)
+        OptionalDouble average = Arrays.stream(studentArray)
                 .parallel()
-                .filter(Student::checkIsCurrent)
+                .filter(student -> student.checkIsCurrent())
                 .mapToDouble(Student::getAge)
-                .average()
-                .getAsDouble();
+                .average();
+        return average.isPresent() ? average.getAsDouble() : 0d;
     }
 
     /**
@@ -107,13 +104,13 @@ public final class StudentAnalytics {
      */
     public String mostCommonFirstNameOfInactiveStudentsParallelStream(
             final Student[] studentArray) {
-        return Stream.of(studentArray)
+        return Arrays.stream(studentArray)
                 .parallel()
-                .filter(s->!s.checkIsCurrent())
-                .map(Student::getFirstName)
-                .collect(Collectors.groupingBy(Function.identity(),Collectors.counting()))
+                .filter(student -> !student.checkIsCurrent())
+                .map(student -> student.getFirstName())
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet()
-                .parallelStream()
+                .stream()
                 .max(Map.Entry.comparingByValue())
                 .get()
                 .getKey();
@@ -152,9 +149,9 @@ public final class StudentAnalytics {
      */
     public int countNumberOfFailedStudentsOlderThan20ParallelStream(
             final Student[] studentArray) {
-        return (int) Stream.of(studentArray)
+        return (int) Arrays.stream(studentArray)
                 .parallel()
-                .filter(s->!s.checkIsCurrent()&&(s.getAge()>20)&&(s.getGrade()<65))
+                .filter(student -> !student.checkIsCurrent() && student.getAge() > 20 && student.getGrade() < 65)
                 .count();
     }
 }
