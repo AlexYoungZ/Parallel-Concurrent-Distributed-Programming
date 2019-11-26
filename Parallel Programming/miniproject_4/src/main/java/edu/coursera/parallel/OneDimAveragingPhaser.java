@@ -73,7 +73,7 @@ public final class OneDimAveragingPhaser {
                         threadPrivateMyNew[j] = (threadPrivateMyVal[j - 1]
                             + threadPrivateMyVal[j + 1]) / 2.0;
                     }
-                    ph.arriveAndAwaitAdvance();
+                    ph.arriveAndAwaitAdvance(); // barrier
 
                     double[] temp = threadPrivateMyNew;
                     threadPrivateMyNew = threadPrivateMyVal;
@@ -111,15 +111,18 @@ public final class OneDimAveragingPhaser {
             final double[] myNew, final double[] myVal, final int n,
             final int tasks) {
 
-        Phaser ph = new Phaser(0);
-        ph.bulkRegister(tasks);
+        Phaser[] phArr = new Phaser[tasks];
+
+        for (int i = 0; i < phArr.length; i++) {
+            phArr[i] = new Phaser(1);
+        }
 
         Thread[] threads = new Thread[tasks];
 
         for (int ii = 0; ii < tasks; ii++) {
             final int i = ii;
 
-            threads[ii] = new Thread(()->{
+            threads[ii] = new Thread(() -> {
                 double[] threadPrivateMyVal = myVal;
                 double[] threadPrivateMyNew = myNew;
 
@@ -127,20 +130,23 @@ public final class OneDimAveragingPhaser {
                     final int left = i * (n / tasks) + 1;
                     final int right = (i + 1) * (n / tasks);
 
-                    int phaseNum = ph.arrive();
-
                     for (int j = left; j <= right; j++) {
                         threadPrivateMyNew[j] = (threadPrivateMyVal[j - 1] + threadPrivateMyVal[j + 1]) / 2.0;
-
                     }
-                    ph.awaitAdvance(phaseNum);
+                    int currentPhase = phArr[i].arrive();
+                    if (i - 1 > 0) {
+                        phArr[i - 1].awaitAdvance(currentPhase);
+                    }
+                    if (i + 1 < tasks) {
+                        phArr[i + 1].awaitAdvance(currentPhase);
+                    }
+
                     double[] temp = threadPrivateMyNew;
                     threadPrivateMyNew = threadPrivateMyVal;
                     threadPrivateMyVal = temp;
                 }
             });
             threads[ii].start();
-
         }
         for (int ii = 0; ii < tasks; ii++) {
             try {
@@ -149,6 +155,6 @@ public final class OneDimAveragingPhaser {
                 e.printStackTrace();
             }
         }
-
+        System.out.println("iterations "+iterations+" done");
     }
 }
