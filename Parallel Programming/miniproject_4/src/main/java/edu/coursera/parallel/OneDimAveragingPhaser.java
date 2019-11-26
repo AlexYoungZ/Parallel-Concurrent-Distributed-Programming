@@ -63,12 +63,15 @@ public final class OneDimAveragingPhaser {
                 double[] threadPrivateMyVal = myVal;
                 double[] threadPrivateMyNew = myNew;
 
-                final int chunkSize = (n + tasks - 1) / tasks;
-                final int left = (i * chunkSize) + 1;
-                int right = (left + chunkSize) - 1;
-                if (right > n) right = n;
+//                final int chunkSize = (n + tasks - 1) / tasks;
+//                final int left = (i * chunkSize) + 1;
+//                int right = (left + chunkSize) - 1;
+//                if (right > n) right = n;
 
                 for (int iter = 0; iter < iterations; iter++) {
+                    final int left = i * (n / tasks) + 1;
+                    final int right = (i + 1) * (n / tasks);
+
                     for (int j = left; j <= right; j++) {
                         threadPrivateMyNew[j] = (threadPrivateMyVal[j - 1]
                             + threadPrivateMyVal[j + 1]) / 2.0;
