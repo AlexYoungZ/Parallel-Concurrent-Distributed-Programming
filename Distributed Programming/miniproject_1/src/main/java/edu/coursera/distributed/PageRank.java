@@ -1,10 +1,11 @@
 package edu.coursera.distributed;
 
+import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaPairRDD;
 import scala.Tuple2;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -52,21 +53,26 @@ public final class PageRank {
     public static JavaPairRDD<Integer, Double> sparkPageRank(
             final JavaPairRDD<Integer, Website> sites,
             final JavaPairRDD<Integer, Double> ranks) {
-        return sites.join(ranks)
+        return sites
+                .join(ranks)
                 .flatMapToPair(kv -> {
-                    final Integer websiteId = kv._1;
-                    final Tuple2<Website, Double> tuple = kv._2;
-                    final Website edges = tuple._1;
-                    final Double currentRank = tuple._2;
-                    final List<Tuple2<Integer, Double>> contribs = new ArrayList<>();
-                    final Iterator<Integer> links = edges.edgeIterator();
-                    while (links.hasNext()) {
-                        final int target = links.next();
-                        contribs.add(new Tuple2<>(target, currentRank / edges.getNEdges()));
+                    Tuple2<Website, Double> value = kv._2;
+
+                    Website site = value._1();
+                    Double currentRank = value._2();
+                    Double rankSourcesRatio = currentRank / (double) site.getNEdges();
+
+                    List<Tuple2<Integer, Double>> contribs = new LinkedList<>();
+
+                    Iterator<Integer> iter = site.edgeIterator();
+
+                    while (iter.hasNext()) {
+                        final int target = iter.next();
+                        contribs.add(new Tuple2<>(target, rankSourcesRatio));
                     }
                     return contribs;
                 })
-                .reduceByKey((Double a, Double b) -> a + b)
-                .mapValues(y -> 0.15 + (0.85 * y));
+                .reduceByKey((Double d1, Double d2) -> d1 + d2)
+                .mapValues(v -> 0.15 + 0.85 * v);
     }
 }
