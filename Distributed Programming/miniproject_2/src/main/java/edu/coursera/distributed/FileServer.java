@@ -29,7 +29,8 @@ public final class FileServer {
         while (true) {
 
             // TODO 1) Use socket.accept to get a Socket object
-            final Socket s = socket.accept();
+            Socket s = socket.accept();
+            BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
 
             /*
              * TODO 2) Using Socket.getInputStream(), parse the received HTTP
@@ -40,10 +41,7 @@ public final class FileServer {
              *
              *     GET /path/to/file HTTP/1.1
              */
-            final InputStream inputStream = s.getInputStream();
-            final InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-            final BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            final String line = bufferedReader.readLine();
+            String line = br.readLine();
             assert line != null;
             assert line.startsWith("GET");
             final String path = line.split(" ")[1];
@@ -68,23 +66,23 @@ public final class FileServer {
              *
              * Don't forget to close the output stream.
              */
-            final PCDPPath pcdpPath = new PCDPPath(path);
-            final String contents = fs.readFile(pcdpPath);
-            final OutputStream outputStream = s.getOutputStream();
-            final PrintWriter printWriter = new PrintWriter(outputStream);
-            if (contents == null) {
-                printWriter.write("HTTP/1.0 404 Not Found\r\n");
-                printWriter.write("Server: FileServer\r\n");
-                printWriter.write("\r\n");
+            PCDPPath pcdpPath = new PCDPPath(path);
+            String fileContent = fs.readFile(pcdpPath);
+
+            OutputStream out = s.getOutputStream();
+            PrintWriter pw = new PrintWriter(out);
+
+            if (fileContent != null) {
+                pw.write("HTTP/1.0 200 OK\r\n");
+                pw.write("Server: FileServer\r\n");
+                pw.write("\r\n");
+                pw.write(fileContent + "\r\n");
             } else {
-                printWriter.write("HTTP/1.0 200 OK\r\n");
-                printWriter.write("Server: FileServer\r\n");
-                printWriter.write("\r\n");
-                printWriter.write(String.format("%s\r\n", contents));
+                pw.write("HTTP/1.0 404 Not Found\r\n");
+                pw.write("Server: FileServer\r\n");
+                pw.write("\r\n");
             }
-            printWriter.close();
-            outputStream.close();
-            s.close();
+            pw.close();
         }
     }
 }
