@@ -37,7 +37,7 @@ public final class FileServer {
         while (true) {
 
             // TODO 1) Use socket.accept to get a Socket object
-            final Socket s = socket.accept();
+            Socket s = socket.accept();
 
             /*
              * TODO 2) Now that we have a new Socket object, handle the parsing
@@ -75,44 +75,38 @@ public final class FileServer {
              * If you wish to do so, you are free to re-use code from
              * MiniProject 2 to help with completing this MiniProject.
              */
-            final ExecutorService executor = Executors.newFixedThreadPool(ncores);
-            executor.submit(
-                    ()->{
-                        try {
-                            handle(s, fs);
-                        } catch (final IOException io) {
-                            throw new RuntimeException(io);
-                        }
+            Thread thread = new Thread(() -> {
+                try {
+                    BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
+
+                    String line = br.readLine();
+                    assert line != null;
+                    assert line.startsWith("GET");
+                    final String path = line.split(" ")[1];
+
+                    PCDPPath pcdpPath = new PCDPPath(path);
+                    String fileContent = fs.readFile(pcdpPath);
+
+                    OutputStream out = s.getOutputStream();
+                    PrintWriter pw = new PrintWriter(out);
+
+                    if (fileContent != null) {
+                        pw.write("HTTP/1.0 200 OK\r\n");
+                        pw.write("Server: FileServer\r\n");
+                        pw.write("\r\n");
+                        pw.write(fileContent + "\r\n");
+                    } else {
+                        pw.write("HTTP/1.0 404 Not Found\r\n");
+                        pw.write("Server: FileServer\r\n");
+                        pw.write("\r\n");
                     }
-            );
-        }
-    }
 
-    private void handle(final Socket s,final PCDPFilesystem fs)throws IOException {
-        final InputStream inputStream = s.getInputStream();
-        final InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-        final BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-        final String line = bufferedReader.readLine();
-        assert line != null;
-        assert line.startsWith("GET");
-        final String path = line.split(" ")[1];
-
-        final PCDPPath pcdpPath = new PCDPPath(path);
-        final String contents = fs.readFile(pcdpPath);
-        final OutputStream outputStream = s.getOutputStream();
-        final PrintWriter printWriter = new PrintWriter(outputStream);
-        if (contents == null) {
-            printWriter.write("HTTP/1.0 404 Not Found\r\n");
-            printWriter.write("Server: FileServer\r\n");
-            printWriter.write("\r\n");
-        } else {
-            printWriter.write("HTTP/1.0 200 OK\r\n");
-            printWriter.write("Server: FileServer\r\n");
-            printWriter.write("\r\n");
-            printWriter.write(String.format("%s\r\n", contents));
+                    pw.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            thread.start();
         }
-        printWriter.close();
-        outputStream.close();
-        s.close();
     }
 }
